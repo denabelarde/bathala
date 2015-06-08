@@ -1,15 +1,18 @@
 package com.staticobjx.bathala;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.special.ResideMenu.ResideMenu;
 import com.special.ResideMenu.ResideMenuItem;
 
@@ -17,12 +20,12 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnMapReadyCallback {
 
 
     @InjectView(R.id.parent_layout)
     RelativeLayout parentLayout;
-    GoogleMap myMap;
+
     MapFragment mapFragment;
     ResideMenu resideMenu;
 
@@ -36,9 +39,10 @@ public class MainActivity extends Activity {
         mapFragment = ((MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map));
         resideMenu.attachToActivity(this);
-        myMap = mapFragment.getMap();
+        mapFragment.getMapAsync(this);
         // create menu items;
         String titles[] = {"All", "Events", "Disaster", "Festival", "Others"};
+
         int icon[] = {R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
 
         for (int i = 0; i < titles.length; i++) {
@@ -46,6 +50,19 @@ public class MainActivity extends Activity {
             resideMenu.addMenuItem(item, ResideMenu.DIRECTION_RIGHT); // or  ResideMenu.DIRECTION_RIGHT
         }
         resideMenu.addIgnoredView(parentLayout);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap map) {
+        LatLng sydney = new LatLng(-33.867, 151.206);
+
+        map.setMyLocationEnabled(true);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 13));
+
+        map.addMarker(new MarkerOptions()
+                .title("Sydney")
+                .snippet("The most populous city in Australia.")
+                .position(sydney));
     }
 
     public void openCategories(View view) {
