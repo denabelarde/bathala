@@ -1,0 +1,58 @@
+@import 'bootstrap/less/bootstrap.less';
+@import 'font-awesome/less/font-awesome.less';
+
+@icon-font-path: '/bower_components/bootstrap/fonts/';
+@fa-font-path: '/bower_components/font-awesome/fonts';
+
+/**
+ * App-wide Styles
+ */
+
+html, body, body > div {
+  height: 100%;
+}
+
+.wrapper {
+  	height: 100%;	
+}
+
+.leaflet-bar a {
+	z-index: -10;
+}
+
+.map-container {
+	margin: 0px;
+	padding: 0px;
+  	height: 100%;	
+  	z-index: -1;
+}
+
+.map-inactive {
+	z-index: -1;
+}
+
+.map-active {
+	z-index: 1;
+}
+
+.angular-leaflet-map {
+  height: 100%;
+}
+
+.nav-menu {
+	width: 100%;
+	position: absolute;
+	right: 0px;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+// injector
+@import 'main/main.less';
+@import 'modal/modal.less';
+// endinjector
